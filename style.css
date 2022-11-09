@@ -1,0 +1,47 @@
+body {
+  background-color: bisque;
+}
+
+.navbar {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.store-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container {
+  max-width: 100%;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.card-img-top {
+  height: 375px;
+  object-fit: cover;
+}
+
+.card-body {
+  height: 175px;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.681);
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.skip-button {
+  background-color: brown;
+  color: white;
+}
+
+h5 {
+  font-size: 0.8rem;
+}
