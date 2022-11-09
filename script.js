@@ -9,6 +9,7 @@ const createBookCard = function (list) {
   <div class="card-body">
     <h5 class="card-title">${list.title}</h5>
     <p class="card-text">Category: ${list.category}</p>
+    <p class="card-text">Price: ${list.price} $</p>
     <div class="card-buttons">
     <button class="btn btn-primary add-button">Add To Cart</button>
     <button class="btn skip-button">Skip</button>
@@ -16,20 +17,21 @@ const createBookCard = function (list) {
   </div>
   </div>
 </div>`;
-  bookTitlesArray.push(list.title);
+
   const addButtons = document.querySelectorAll(".add-button"); //getting the array of all buttons
   for (let addButton of addButtons) {
     //looping and adding event listener to each button
     addButton.addEventListener("click", () => {
-      console.log("The add button was clicked");
-      const modalBody = document.querySelector(".modal-body");
-      const ul = document.createElement("ul");
+      //when the button is clicked do the following
+      const currentCard = addButton.closest(".card-body"); //get the closest card-body
+      const currentTitle = currentCard.querySelector("h5").innerText; //get the innerText of the h5 from the card-body
+      const modalBody = document.querySelector(".modal-body"); //get the modal that we want to change
+      const ul = document.createElement("ul"); //create ul and li
       const newLi = document.createElement("li");
-      const bookTitle = document.querySelector(".card-title").innerText;
-      newLi.innerText = bookTitle;
-      ul.appendChild(newLi);
+      newLi.innerText = currentTitle; //pass the li the currentTitle
+      ul.appendChild(newLi); //append everything
       modalBody.appendChild(ul);
-      addButton.disabled = "true";
+      addButton.disabled = "true"; //change the add button to disabled
     });
   }
   const skipButtons = document.querySelectorAll(".skip-button");
@@ -48,10 +50,13 @@ const fetchAndCreate = async () => {
 
 const showBooksButton = document.querySelector(".show-books");
 showBooksButton.addEventListener("click", fetchAndCreate);
+fetchAndCreate();
 
 const searchAndCreate = async () => {
   const response = await fetch("https://striveschool-api.herokuapp.com/books");
   const list = await response.json();
-  const filteredList = list.filter((list) => list.title === searchedBooks);
+  const filteredList = list.filter((list) =>
+    list.title.includes(searchedValue)
+  );
   filteredList.forEach(createBookCard);
 };
